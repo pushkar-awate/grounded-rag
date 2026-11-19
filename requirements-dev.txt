@@ -1,0 +1,4 @@
+# CI runs the deterministic path only (hashing embedder + ExtractiveBrain):
+# no torch, no model download, no API key. Fast and free.
+numpy>=1.26
+pytest>=7.0

@@ -1,0 +1,49 @@
+[
+  {"id": "attn_qkv", "question": "How does self-attention use queries and keys to decide what a token attends to?",
+   "answerable": true, "relevant_doc_ids": ["transformer_attention"],
+   "reference": "Attention weights come from the softmax of scaled dot products between queries and keys."},
+
+  {"id": "multihead", "question": "What is multi-head attention and why is it used?",
+   "answerable": true, "relevant_doc_ids": ["transformer_attention"],
+   "reference": "Several attention operations run in parallel with their own projections to attend to different relationships."},
+
+  {"id": "lora_freeze", "question": "What does LoRA keep frozen and what does it train instead?",
+   "answerable": true, "relevant_doc_ids": ["lora_peft"],
+   "reference": "LoRA freezes pretrained weights and trains small low-rank matrices injected alongside them."},
+
+  {"id": "qlora", "question": "How does QLoRA reduce memory compared to plain LoRA?",
+   "answerable": true, "relevant_doc_ids": ["lora_peft"],
+   "reference": "QLoRA quantises the frozen base model to 4-bit while training adapters in higher precision."},
+
+  {"id": "rag_stages", "question": "What are the stages of a RAG pipeline and what does the reranker do?",
+   "answerable": true, "relevant_doc_ids": ["retrieval_augmented_generation"],
+   "reference": "Chunk+embed, retrieve, rerank with a cross-encoder, then generate a grounded cited answer."},
+
+  {"id": "mlm", "question": "What is the masked language modelling objective BERT is trained on?",
+   "answerable": true, "relevant_doc_ids": ["bert_pretraining"],
+   "reference": "Random tokens are masked and the model predicts them from bidirectional context."},
+
+  {"id": "normalise_vectors", "question": "Why normalise embedding vectors to unit length before search?",
+   "answerable": true, "relevant_doc_ids": ["vector_search"],
+   "reference": "Once normalised, inner product equals cosine similarity, so a flat IP index gives exact cosine search."},
+
+  {"id": "data_drift", "question": "What is data drift and how is it detected?",
+   "answerable": true, "relevant_doc_ids": ["mlops_drift"],
+   "reference": "Drift is input-distribution change vs training; detected via stats like PSI or KS distance."},
+
+  {"id": "rag_abstain", "question": "According to the documents, what should a good RAG system do when the retrieved context does not contain the answer?",
+   "answerable": true, "relevant_doc_ids": ["retrieval_augmented_generation"],
+   "reference": "It should abstain and say so rather than guessing."},
+
+  {"id": "unans_france", "question": "What is the capital of France?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "unans_sourdough", "question": "Give me a step-by-step recipe for sourdough bread.",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "unans_revenue", "question": "What was OpenAI's total revenue in 2025?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "unans_gpt5_params", "question": "How many parameters does GPT-5 have?",
+   "answerable": false, "relevant_doc_ids": []}
+]

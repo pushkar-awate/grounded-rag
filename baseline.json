@@ -1,0 +1,13 @@
+{
+  "version": "cli",
+  "n_cases": 13,
+  "per_judge_pass_rate": {
+    "retrieval_hit": 100,
+    "mrr": 100,
+    "citation_present": 100,
+    "groundedness": 100,
+    "refusal_correct": 100
+  },
+  "abstention_rate": 31,
+  "mrr": 0.87
+}
