@@ -1,6 +1,6 @@
 """Load source documents and split them into retrieval chunks.
 
-Chunking is where most RAG systems quietly lose: too big and the reranker/LLM
+Chunking is where most RAG systems lose quality: too big and the reranker/LLM
 drown in irrelevant text, too small and a single fact gets split across chunks
 and is never retrieved whole. We chunk on paragraph/sentence boundaries with a
 small overlap so a fact that straddles a boundary still lands intact in at least

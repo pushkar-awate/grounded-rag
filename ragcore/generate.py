@@ -1,10 +1,10 @@
 """Grounded answer generation.
 
-The whole point of this project: the model answers ONLY from retrieved context,
+What this project does: the model answers ONLY from retrieved context,
 cites every claim with a [n] marker tied to a specific chunk, and explicitly
 abstains when the context doesn't contain the answer. That last part - refusing
 to answer rather than hallucinating - is what separates a trustworthy RAG system
-from a confident liar, and it's measured directly in the eval harness.
+from an unreliable one, and it's measured directly in the eval harness.
 """
 from __future__ import annotations
 

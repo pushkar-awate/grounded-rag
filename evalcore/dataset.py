@@ -2,9 +2,9 @@
 
 Each case says what SHOULD happen: which document holds the answer (so we can
 score retrieval), and - crucially - whether the corpus can answer it at all.
-The "unanswerable" cases are the sharp edge of the suite: a RAG system that
+The "unanswerable" cases are the hardest part of the suite: a RAG system that
 scores well on answerable questions but invents answers to unanswerable ones is
-worse than useless, and only a dataset that includes both can catch it.
+unreliable, and only a dataset that includes both can catch it.
 """
 from __future__ import annotations
 

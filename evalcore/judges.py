@@ -1,7 +1,7 @@
 """Judges score one RagResult against one EvalCase.
 
 Most judges are deterministic and LLM-free, so the suite runs in CI for $0 and
-never flakes on a model mood. One optional judge (LLMFaithfulness) uses the same
+stays deterministic. One optional judge (LLMFaithfulness) uses the same
 Groq brain the app uses, for a semantic check of whether the answer is actually
 supported by its sources. Every judge returns the same Judgement shape so the
 scorecard can aggregate them uniformly.
@@ -78,7 +78,7 @@ class CitationJudge:
 
 class GroundednessJudge:
     """Structural grounding: every cited chunk is real context, and the answer
-    shares real content terms with what it cited (a cheap, no-LLM proxy for
+    shares real content terms with what it cited (a simple no-LLM proxy for
     'the answer actually came from the sources')."""
     name = "groundedness"
 
@@ -104,7 +104,7 @@ class GroundednessJudge:
 
 
 class RefusalJudge:
-    """The decisive one: answer when you can, abstain when you can't."""
+    """answer when you can, abstain when you can't."""
     name = "refusal_correct"
 
     def judge(self, result, case) -> Judgement:

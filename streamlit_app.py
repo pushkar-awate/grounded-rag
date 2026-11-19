@@ -75,8 +75,8 @@ def corpus_signature(docs) -> str:
 
 st.title("grounded-rag")
 st.caption("Retrieval-augmented QA that **cites its sources** and **abstains** "
-           "when the documents can't answer. Retrieve → rerank → "
-           "grounded generation → evaluation gate.")
+           "when the documents can't answer. Retrieval, reranking, "
+           "grounded generation, then an evaluation gate.")
 
 with st.sidebar:
     st.header("Corpus")
@@ -144,8 +144,8 @@ brain = GroqBrain() if (use_llm and key_present) else ExtractiveBrain()
 brain_name = "Groq Llama-3.3-70B" if (use_llm and key_present) else "extractive (deterministic)"
 pipe = RagPipeline(emb, store, rr, brain, retrieve_k=retrieve_k, context_k=context_k)
 
-st.caption("Embedder: **%s**  ·  Reranker: **%s**  ·  Generator: **%s**  "
-           "·  %d chunks indexed" % (emb_name, rr_name, brain_name, len(store.chunks)))
+st.caption("Embedder: **%s**  |  Reranker: **%s**  |  Generator: **%s**  "
+           "|  %d chunks indexed" % (emb_name, rr_name, brain_name, len(store.chunks)))
 
 
 # --- ask -------------------------------------------------------------------
@@ -165,7 +165,7 @@ if go and question.strip():
     ans = res.answer
 
     if ans.abstained:
-        st.warning("**Abstained** — the retrieved context doesn't contain "
+        st.warning("**Abstained.** The retrieved context doesn't contain "
                    "the answer, so the system declined to guess.")
     else:
         st.markdown("### Answer")
@@ -178,7 +178,7 @@ if go and question.strip():
 
     with st.expander("Retrieved context (reranked)"):
         for c, score in res.reranked:
-            st.markdown("**%s**  ·  score %.3f" % (c.citation(), score))
+            st.markdown("**%s**  (score %.3f)" % (c.citation(), score))
             st.caption(c.text[:400] + ("..." if len(c.text) > 400 else ""))
 
 
@@ -187,7 +187,7 @@ if go and question.strip():
 st.divider()
 st.subheader("Evaluation")
 st.caption("Runs the gold eval set over the **bundled** corpus and gates the "
-           "scorecard against the committed baseline — the same check CI runs.")
+           "scorecard against the committed baseline. This is the same check CI runs.")
 if st.button("Run evaluation on the bundled corpus"):
     with st.spinner("Scoring retrieval, grounding, and refusal..."):
         bundled = load_bundled_corpus()
@@ -215,9 +215,9 @@ if st.button("Run evaluation on the bundled corpus"):
             baseline = json.load(fh)
         result = regression_gate(card, baseline, tolerance=5.0)
         if result.passed:
-            st.success("GATE PASS — no gated regression vs the committed baseline.")
+            st.success("GATE PASS. No gated regression versus the committed baseline.")
         else:
-            st.error("GATE FAIL — regression in %s."
+            st.error("GATE FAIL. Regression in %s."
                      % ", ".join(c.metric for c in result.regressions))
         st.caption("Live numbers use the real model stack and may differ slightly "
                    "from the deterministic committed baseline; the gate tolerance "

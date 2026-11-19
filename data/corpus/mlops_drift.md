@@ -3,7 +3,7 @@
 A machine-learning model is trained on a snapshot of the world, but the world
 keeps moving. Data drift is the gradual change in the distribution of inputs a
 model sees in production compared with the data it was trained on. When drift is
-large enough, a model that was accurate at launch can quietly degrade, because
+large enough, a model that was accurate at launch can degrade, because
 its learned patterns no longer match reality.
 
 Monitoring systems detect drift by comparing the statistics of recent production

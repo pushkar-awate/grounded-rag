@@ -5,8 +5,8 @@ query and a chunk independently. A cross-encoder reads the query and chunk
 TOGETHER and scores their actual relevance, which is far more accurate - too
 slow to run over the whole corpus, but perfect for re-ordering the top ~20
 candidates the vector store already narrowed down. This two-stage
-retrieve-then-rerank pattern is the single biggest quality lever in practical
-RAG, so it's a first-class component here, not an afterthought.
+retrieve-then-rerank pattern is a major lever for retrieval quality in practical
+RAG, so it gets its own stage here.
 """
 from __future__ import annotations
 
