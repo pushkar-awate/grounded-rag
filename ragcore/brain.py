@@ -82,7 +82,7 @@ class ExtractiveBrain:
 class GroqBrain:
     """Groq chat-completions wrapper. Reads GROQ_API_KEY from the environment."""
 
-    def __init__(self, model: str = "llama-3.3-70b-versatile",
+    def __init__(self, model: str = "openai/gpt-oss-20b",
                  api_key: Optional[str] = None):
         self.model = model
         self.api_key = api_key or os.environ.get("GROQ_API_KEY")

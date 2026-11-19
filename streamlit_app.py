@@ -141,7 +141,7 @@ emb, emb_name = get_embedder()
 rr, rr_name = get_reranker()
 store = get_store(corpus_signature(docs), docs)
 brain = GroqBrain() if (use_llm and key_present) else ExtractiveBrain()
-brain_name = "Groq Llama-3.3-70B" if (use_llm and key_present) else "extractive (deterministic)"
+brain_name = "Groq GPT-OSS-20B" if (use_llm and key_present) else "extractive (deterministic)"
 pipe = RagPipeline(emb, store, rr, brain, retrieve_k=retrieve_k, context_k=context_k)
 
 st.caption("Embedder: **%s**  |  Reranker: **%s**  |  Generator: **%s**  "

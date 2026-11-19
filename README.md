@@ -37,7 +37,7 @@ Retrieve, rerank, generate with grounding, then evaluate. The app, the CLI, and 
 | Tier | Embedder / Reranker / Generator | Where it runs | Purpose |
 |------|----------------------------------|---------------|---------|
 | Deterministic | Hashing + identity + `ExtractiveBrain` | CI and committed `baseline.json` | Reproducible, offline, zero-cost guard on the logic |
-| Live | MiniLM + cross-encoder + Groq Llama-3.3 | Streamlit Cloud | Real retrieval and generation quality |
+| Live | MiniLM + cross-encoder + Groq GPT-OSS-20B | Streamlit Cloud | Real retrieval and generation quality |
 
 CI never downloads a model or spends a token, but it still fails a pull request that breaks grounding or refusal. The live app runs the real stack. The gate tolerance covers the small differences between the two.
 
@@ -70,7 +70,7 @@ A 13-case gold set, 9 answerable and 4 unanswerable. Regenerate it with `python 
 
 ## Tech
 
-Python, sentence-transformers (MiniLM), FAISS, cross-encoder reranking, Groq (Llama-3.3-70B), Streamlit, GitHub Actions. No paid services: local embeddings, a local vector index, a free LLM tier, and free hosting.
+Python, sentence-transformers (MiniLM), FAISS, cross-encoder reranking, Groq (GPT-OSS-20B), Streamlit, GitHub Actions. No paid services: local embeddings, a local vector index, a free LLM tier, and free hosting.
 
 ## Layout
 
