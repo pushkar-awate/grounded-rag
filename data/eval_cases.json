@@ -1,49 +1,85 @@
 [
-  {"id": "attn_qkv", "question": "How does self-attention use queries and keys to decide what a token attends to?",
+  {"id": "attn_qkv", "category": "standard", "question": "How does self-attention use queries and keys to decide what a token attends to?",
    "answerable": true, "relevant_doc_ids": ["transformer_attention"],
    "reference": "Attention weights come from the softmax of scaled dot products between queries and keys."},
 
-  {"id": "multihead", "question": "What is multi-head attention and why is it used?",
+  {"id": "multihead", "category": "standard", "question": "What is multi-head attention and why is it used?",
    "answerable": true, "relevant_doc_ids": ["transformer_attention"],
    "reference": "Several attention operations run in parallel with their own projections to attend to different relationships."},
 
-  {"id": "lora_freeze", "question": "What does LoRA keep frozen and what does it train instead?",
+  {"id": "lora_freeze", "category": "standard", "question": "What does LoRA keep frozen and what does it train instead?",
    "answerable": true, "relevant_doc_ids": ["lora_peft"],
    "reference": "LoRA freezes pretrained weights and trains small low-rank matrices injected alongside them."},
 
-  {"id": "qlora", "question": "How does QLoRA reduce memory compared to plain LoRA?",
+  {"id": "qlora", "category": "standard", "question": "How does QLoRA reduce memory compared to plain LoRA?",
    "answerable": true, "relevant_doc_ids": ["lora_peft"],
    "reference": "QLoRA quantises the frozen base model to 4-bit while training adapters in higher precision."},
 
-  {"id": "rag_stages", "question": "What are the stages of a RAG pipeline and what does the reranker do?",
+  {"id": "rag_stages", "category": "standard", "question": "What are the stages of a RAG pipeline and what does the reranker do?",
    "answerable": true, "relevant_doc_ids": ["retrieval_augmented_generation"],
    "reference": "Chunk+embed, retrieve, rerank with a cross-encoder, then generate a grounded cited answer."},
 
-  {"id": "mlm", "question": "What is the masked language modelling objective BERT is trained on?",
+  {"id": "mlm", "category": "standard", "question": "What is the masked language modelling objective BERT is trained on?",
    "answerable": true, "relevant_doc_ids": ["bert_pretraining"],
    "reference": "Random tokens are masked and the model predicts them from bidirectional context."},
 
-  {"id": "normalise_vectors", "question": "Why normalise embedding vectors to unit length before search?",
+  {"id": "normalise_vectors", "category": "standard", "question": "Why normalise embedding vectors to unit length before search?",
    "answerable": true, "relevant_doc_ids": ["vector_search"],
    "reference": "Once normalised, inner product equals cosine similarity, so a flat IP index gives exact cosine search."},
 
-  {"id": "data_drift", "question": "What is data drift and how is it detected?",
+  {"id": "data_drift", "category": "standard", "question": "What is data drift and how is it detected?",
    "answerable": true, "relevant_doc_ids": ["mlops_drift"],
    "reference": "Drift is input-distribution change vs training; detected via stats like PSI or KS distance."},
 
-  {"id": "rag_abstain", "question": "According to the documents, what should a good RAG system do when the retrieved context does not contain the answer?",
+  {"id": "rag_abstain", "category": "standard", "question": "According to the documents, what should a good RAG system do when the retrieved context does not contain the answer?",
    "answerable": true, "relevant_doc_ids": ["retrieval_augmented_generation"],
    "reference": "It should abstain and say so rather than guessing."},
 
-  {"id": "unans_france", "question": "What is the capital of France?",
+  {"id": "unans_france", "category": "standard", "question": "What is the capital of France?",
    "answerable": false, "relevant_doc_ids": []},
 
-  {"id": "unans_sourdough", "question": "Give me a step-by-step recipe for sourdough bread.",
+  {"id": "unans_sourdough", "category": "standard", "question": "Give me a step-by-step recipe for sourdough bread.",
    "answerable": false, "relevant_doc_ids": []},
 
-  {"id": "unans_revenue", "question": "What was OpenAI's total revenue in 2025?",
+  {"id": "unans_revenue", "category": "standard", "question": "What was OpenAI's total revenue in 2025?",
    "answerable": false, "relevant_doc_ids": []},
 
-  {"id": "unans_gpt5_params", "question": "How many parameters does GPT-5 have?",
-   "answerable": false, "relevant_doc_ids": []}
+  {"id": "unans_gpt5_params", "category": "standard", "question": "How many parameters does GPT-5 have?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "adv_ooc_withdrawal", "category": "adversarial_ooc", "question": "What is the maximum daily ATM withdrawal limit on a savings account?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "adv_ooc_house", "category": "adversarial_ooc", "question": "Which Australian city had the highest median house price last quarter?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "adv_ooc_oncall", "category": "adversarial_ooc", "question": "Who is the on-call engineer for the payments platform this week?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "adv_ooc_gdpr", "category": "adversarial_ooc", "question": "What is the maximum fine under the EU GDPR for a data breach?",
+   "answerable": false, "relevant_doc_ids": []},
+
+  {"id": "adv_distractor_heads", "category": "adversarial_distractor", "question": "How many attention heads does the transformer explainer recommend using?",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "The explainer describes multi-head attention but prescribes no specific head count."},
+
+  {"id": "adv_distractor_lora_lr", "category": "adversarial_distractor", "question": "What learning rate does the LoRA explainer say to train the adapters with?",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "The explainer covers what LoRA trains but states no learning rate."},
+
+  {"id": "adv_distractor_bert_batch", "category": "adversarial_distractor", "question": "What batch size does the BERT explainer use for pretraining?",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "The explainer describes the MLM objective but gives no batch size."},
+
+  {"id": "adv_false_premise_bert", "category": "adversarial_false_premise", "question": "Why is BERT trained with a strictly left-to-right objective?",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "False premise: BERT's masked objective is bidirectional, not left-to-right."},
+
+  {"id": "adv_false_premise_norm", "category": "adversarial_false_premise", "question": "Explain why normalising vectors makes cosine similarity impossible to compute.",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "False premise: normalising vectors makes inner product equal cosine similarity, not impossible."},
+
+  {"id": "adv_false_premise_drift", "category": "adversarial_false_premise", "question": "Since data drift always improves model accuracy over time, why monitor for it?",
+   "answerable": false, "relevant_doc_ids": [],
+   "reference": "False premise: drift degrades accuracy; it does not improve it."}
 ]

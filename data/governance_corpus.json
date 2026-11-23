@@ -1,0 +1,40 @@
+{
+  "_note": "Entirely fictional. 'Northwind Mutual' is an invented bank used only to demonstrate access-scoped retrieval across classification levels. No real institution, person, or data is represented.",
+  "documents": [
+    {
+      "doc_id": "gov_product_saver",
+      "title": "Everyday Saver - Product Disclosure (Public)",
+      "classification": "PUBLIC",
+      "compartment": null,
+      "text": "Northwind Mutual Everyday Saver account. This is public product information. The Everyday Saver pays a variable interest rate of 2.50% per annum, calculated daily and paid monthly. There is no monthly account-keeping fee. The account can be opened by any Australian resident aged 18 or over. Deposits are covered by the Financial Claims Scheme up to the applicable limit."
+    },
+    {
+      "doc_id": "gov_branch_sop",
+      "title": "Branch Identity Verification Procedure (Internal)",
+      "classification": "INTERNAL",
+      "compartment": null,
+      "text": "Internal standard operating procedure for branch staff. When opening an account, staff must verify customer identity to the 100-point standard before activation. Staff record the verification reference in the onboarding system and must not proceed if the customer cannot meet the threshold. This procedure is for internal staff use and is not published externally."
+    },
+    {
+      "doc_id": "gov_risk_register",
+      "title": "Operational Risk Register - Retail Payments (Confidential, RISK)",
+      "classification": "CONFIDENTIAL",
+      "compartment": "RISK",
+      "text": "Confidential operational risk register entry. Under the CPS 230 operational risk standard, the critical operation 'retail payments processing' has a recovery time objective of two hours and a recovery point objective of fifteen minutes. The register notes a concentration risk: a single external clearing vendor supports this critical operation, and no tested failover exists. Tolerance for disruption is set at two hours before customer harm is deemed material."
+    },
+    {
+      "doc_id": "gov_nim_forecast",
+      "title": "Provisional Net Interest Margin Forecast (Confidential, FINANCE)",
+      "classification": "CONFIDENTIAL",
+      "compartment": "FINANCE",
+      "text": "Confidential finance working paper. The provisional net interest margin for the current quarter is forecast at 1.82%, down nine basis points on the prior quarter, driven by deposit repricing. These figures are unaudited, market sensitive, and restricted to the finance function pending board review."
+    },
+    {
+      "doc_id": "gov_incident_report",
+      "title": "Post-Incident Report INC-2026-03 (Restricted, RISK)",
+      "classification": "RESTRICTED",
+      "compartment": "RISK",
+      "text": "Restricted post-incident report, reference INC-2026-03. On 2 March 2026 a configuration change to the payments gateway caused a ninety-minute processing outage affecting an estimated portion of retail transfers. Root cause was an untested change promoted outside the approved change window. The event is classified as a material operational risk incident and is reportable to the prudential regulator. Remediation actions and the accountable executive are tracked in the restricted register."
+    }
+  ]
+}

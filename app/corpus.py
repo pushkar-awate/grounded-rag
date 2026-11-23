@@ -5,12 +5,15 @@ indexes, so the rest of the system never cares about the source.
 from __future__ import annotations
 
 import glob
+import json
 import os
 
 from ragcore.ingest import Document, load_text_file
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CORPUS_DIR = os.path.join(HERE, "data", "corpus")
+GOV_CORPUS = os.path.join(HERE, "data", "governance_corpus.json")
+ACCESS_CASES = os.path.join(HERE, "data", "access_cases.json")
 
 
 def load_bundled_corpus(corpus_dir: str = CORPUS_DIR) -> list[Document]:
@@ -18,6 +21,30 @@ def load_bundled_corpus(corpus_dir: str = CORPUS_DIR) -> list[Document]:
     for path in sorted(glob.glob(os.path.join(corpus_dir, "*.md"))):
         docs.append(load_text_file(path))
     return docs
+
+
+def load_governance_corpus(path: str = GOV_CORPUS) -> list[Document]:
+    """The synthetic classified corpus used by the access-control demo. Each
+    document carries a classification level and optional need-to-know
+    compartment that access-scoped retrieval enforces."""
+    from govcore.access import Classification
+    with open(path, "r", encoding="utf-8") as fh:
+        raw = json.load(fh)
+    docs: list[Document] = []
+    for d in raw["documents"]:
+        docs.append(Document(
+            doc_id=d["doc_id"], title=d["title"], text=d["text"],
+            classification=int(Classification.parse(d.get("classification", 0))),
+            compartment=d.get("compartment"),
+            meta={"classification_label": d.get("classification", "PUBLIC")},
+        ))
+    return docs
+
+
+def load_access_cases(path: str = ACCESS_CASES) -> list[dict]:
+    """Question + the clearance a caller needs to answer it legitimately."""
+    with open(path, "r", encoding="utf-8") as fh:
+        return json.load(fh)
 
 
 def fetch_arxiv(query: str, max_results: int = 8) -> list[Document]:

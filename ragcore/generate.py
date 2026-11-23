@@ -36,6 +36,7 @@ class Answer:
     abstained: bool
     cited_chunks: list[Chunk] = field(default_factory=list)
     context_chunks: list[Chunk] = field(default_factory=list)
+    abstain_reason: str = ""   # machine-readable: why the system declined
 
 
 def build_prompt(query: str, chunks: list[Chunk]) -> str:
@@ -67,11 +68,13 @@ def parse_citations(text: str, chunks: list[Chunk]) -> list[Chunk]:
 def generate(query: str, chunks: list[Chunk], brain) -> Answer:
     """Produce a grounded Answer from the question and its context chunks."""
     if not chunks:
-        return Answer(text=ABSTAIN_PHRASE, abstained=True, context_chunks=[])
+        return Answer(text=ABSTAIN_PHRASE, abstained=True, context_chunks=[],
+                      abstain_reason="no_context")
     prompt = build_prompt(query, chunks)
     raw = brain.complete(prompt, system=GROUNDED_SYSTEM, temperature=0.0).strip()
     if _is_abstention(raw):
-        return Answer(text=ABSTAIN_PHRASE, abstained=True, context_chunks=chunks)
+        return Answer(text=ABSTAIN_PHRASE, abstained=True, context_chunks=chunks,
+                      abstain_reason="insufficient_support")
     cited = parse_citations(raw, chunks)
     return Answer(text=raw, abstained=False, cited_chunks=cited,
                   context_chunks=chunks)

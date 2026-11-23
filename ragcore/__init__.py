@@ -5,8 +5,8 @@ from .embed import Embedder, HashingEmbedder, STEmbedder, default_embedder
 from .store import VectorStore
 from .rerank import (CrossEncoderReranker, IdentityReranker, Reranker,
                      default_reranker)
-from .brain import (ExtractiveBrain, GroqBrain, MockBrain, default_brain,
-                    has_groq_key)
+from .brain import (ExtractiveBrain, GroqBrain, MockBrain, NaiveBrain,
+                    default_brain, has_groq_key)
 from .generate import ABSTAIN_PHRASE, Answer, generate
 from .pipeline import RagPipeline, RagResult, build_store
 
@@ -15,7 +15,8 @@ __all__ = [
     "Embedder", "HashingEmbedder", "STEmbedder", "default_embedder",
     "VectorStore",
     "CrossEncoderReranker", "IdentityReranker", "Reranker", "default_reranker",
-    "ExtractiveBrain", "GroqBrain", "MockBrain", "default_brain", "has_groq_key",
+    "ExtractiveBrain", "GroqBrain", "MockBrain", "NaiveBrain", "default_brain",
+    "has_groq_key",
     "ABSTAIN_PHRASE", "Answer", "generate",
     "RagPipeline", "RagResult", "build_store",
 ]

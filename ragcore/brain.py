@@ -79,6 +79,39 @@ class ExtractiveBrain:
         return "%s [%s]" % (answer, best_num)
 
 
+class NaiveBrain(ExtractiveBrain):
+    """The ungoverned control: always answers from the best-matching source and
+    never abstains, even when nothing in the context is relevant. It exists only
+    to measure what the grounding gate prevents. Running the same eval with this
+    brain and with ExtractiveBrain gives the before/after on the false-answer
+    rate, which is the headline number for the whole project."""
+
+    def __init__(self, sentences: int = 2):
+        super().__init__(threshold=0, sentences=sentences)
+
+    def complete(self, prompt: str, system: Optional[str] = None,
+                 temperature: float = 0.0) -> str:
+        self.calls += 1
+        if "Question:" in prompt:
+            src_part, q_part = prompt.split("Question:", 1)
+            question = q_part.split("Answer")[0].strip()
+        else:
+            src_part, question = prompt, ""
+        blocks = re.findall(r"\[(\d+)\]\s*\([^\n]*\)\n(.*?)(?=\n\[\d+\]\s*\(|\Z)",
+                            src_part, re.S)
+        if not blocks:
+            return _ABSTAIN  # genuinely nothing retrieved; even naive cannot cite
+        q_terms = _terms(question)
+        best_num, best_text, best_ov = blocks[0][0], blocks[0][1], -1
+        for num, text in blocks:
+            ov = len(q_terms & _terms(text))
+            if ov > best_ov:
+                best_num, best_text, best_ov = num, text.strip(), ov
+        sents = re.split(r"(?<=[.!?])\s+", best_text.strip())
+        answer = " ".join(sents[:self.sentences]).strip()
+        return "%s [%s]" % (answer, best_num)
+
+
 class GroqBrain:
     """Groq chat-completions wrapper. Reads GROQ_API_KEY from the environment."""
 

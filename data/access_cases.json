@@ -1,0 +1,16 @@
+[
+  {"id": "acc_saver_rate", "question": "What interest rate does the Everyday Saver account pay?",
+   "relevant_doc_id": "gov_product_saver", "required_classification": "PUBLIC", "required_compartment": null},
+
+  {"id": "acc_id_procedure", "question": "What identity verification standard must branch staff meet before opening an account?",
+   "relevant_doc_id": "gov_branch_sop", "required_classification": "INTERNAL", "required_compartment": null},
+
+  {"id": "acc_rto_payments", "question": "What is the recovery time objective for the retail payments critical operation?",
+   "relevant_doc_id": "gov_risk_register", "required_classification": "CONFIDENTIAL", "required_compartment": "RISK"},
+
+  {"id": "acc_nim", "question": "What is the provisional net interest margin forecast for this quarter?",
+   "relevant_doc_id": "gov_nim_forecast", "required_classification": "CONFIDENTIAL", "required_compartment": "FINANCE"},
+
+  {"id": "acc_incident", "question": "What caused the March 2026 payments outage and how is it classified?",
+   "relevant_doc_id": "gov_incident_report", "required_classification": "RESTRICTED", "required_compartment": "RISK"}
+]

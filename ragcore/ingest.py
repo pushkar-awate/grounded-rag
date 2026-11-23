@@ -12,16 +12,22 @@ from __future__ import annotations
 import os
 import re
 from dataclasses import dataclass, field
-from typing import Iterable
+from typing import Iterable, Optional
 
 
 @dataclass
 class Document:
-    """A source document before chunking."""
+    """A source document before chunking.
+
+    classification/compartment drive access-scoped retrieval (see govcore).
+    They default to PUBLIC / none, so a corpus that never sets them behaves
+    exactly like an ordinary ungoverned corpus."""
     doc_id: str
     title: str
     text: str
     meta: dict = field(default_factory=dict)
+    classification: int = 0
+    compartment: Optional[str] = None
 
 
 @dataclass
@@ -33,6 +39,8 @@ class Chunk:
     text: str
     position: int          # 0-based index of this chunk within its document
     meta: dict = field(default_factory=dict)
+    classification: int = 0          # inherited from the parent document
+    compartment: Optional[str] = None
 
     def citation(self) -> str:
         """Short human-readable source tag, e.g. 'Attention Is All You Need #3'."""
@@ -100,6 +108,8 @@ def chunk_documents(docs: Iterable[Document], target_words: int = 180,
                 text=piece,
                 position=pos,
                 meta=dict(doc.meta),
+                classification=doc.classification,
+                compartment=doc.compartment,
             ))
     return out
 

@@ -19,6 +19,7 @@ class EvalCase:
     relevant_doc_ids: list[str] = field(default_factory=list)
     reference: str = ""                    # optional reference answer / key fact
     must_include: list[str] = field(default_factory=list)  # terms a good answer cites
+    category: str = "standard"             # standard | adversarial_* (see data file)
 
 
 def load_cases(path: str) -> list[EvalCase]:

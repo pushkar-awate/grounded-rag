@@ -35,17 +35,38 @@ class VectorStore:
         index.add(embeddings)
         return index
 
-    def search(self, query_vec: np.ndarray, k: int = 8) -> list[tuple[Chunk, float]]:
+    def search(self, query_vec: np.ndarray, k: int = 8, allow=None
+               ) -> list[tuple[Chunk, float]]:
+        """Top-k by cosine similarity. When ``allow`` is given, only chunks it
+        accepts are returned; the index is over-scanned so an access filter that
+        removes most of the corpus still fills k where possible. Filtering here,
+        before rerank and generation, is what makes access-scoped retrieval real
+        rather than cosmetic: a chunk the caller cannot see never reaches the
+        model."""
         q = query_vec.astype("float32").reshape(1, -1)
-        k = min(k, len(self.chunks))
+        n = len(self.chunks)
+        if allow is None:
+            fetch = min(k, n)
+        else:
+            fetch = n  # need the full ranking to find k that pass the filter
         if self._index is not None:
-            scores, idx = self._index.search(q, k)
+            scores, idx = self._index.search(q, fetch)
             pairs = list(zip(idx[0].tolist(), scores[0].tolist()))
         else:
             sims = (self.embeddings @ q[0])
-            order = np.argsort(-sims)[:k]
+            order = np.argsort(-sims)[:fetch]
             pairs = [(int(i), float(sims[i])) for i in order]
-        return [(self.chunks[i], float(s)) for i, s in pairs if i >= 0]
+        out: list[tuple[Chunk, float]] = []
+        for i, s in pairs:
+            if i < 0:
+                continue
+            ch = self.chunks[i]
+            if allow is not None and not allow(ch):
+                continue
+            out.append((ch, float(s)))
+            if len(out) >= k:
+                break
+        return out
 
     # --- persistence -------------------------------------------------------
 
