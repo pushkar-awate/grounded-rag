@@ -20,3 +20,7 @@ jobs:
         run: python -m pytest tests/ -q
       - name: Regression gate (deterministic, reproducible, $0)
         run: python run.py --fake-embed --gate
+      - name: Access-scoped retrieval (fails on any clearance leak)
+        run: python run.py --fake-embed --access
+      - name: Grounded vs ungrounded false-answer rate
+        run: python run.py --fake-embed --compare
